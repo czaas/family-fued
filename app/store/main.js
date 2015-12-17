@@ -26,14 +26,12 @@ export function newAnswer(a){
 
 let store = createStore(reducers);
 
-store.dispatch(newGame('Game 1'));
-store.dispatch(newGame('Game 2'));
-store.dispatch(newGame('Game 3'));
+store.dispatch(newGame('Game 0 question'));
+store.dispatch(newGame('Game 1 question'));
+store.dispatch(newGame('Game 2 question'));
 
-// parentId needs to be dynamic passed
 store.dispatch(newAnswer({answer: 'Test', gameId: '2', points: 10 }));
 store.dispatch(newAnswer({answer: 'This should be an answer', gameId: '2', points: 67 }));
 
 store.dispatch(newAnswer({answer: 'Third answer', gameId: '2', points: 32 }));
-console.log(store.getState());
 export default store;

@@ -17,8 +17,10 @@ let gameReducer = (state = [], action) => {
 				// looks for state game id vs incoming request id
 				if (game.id === parseInt(action.gameId, 10)) {
 
+					let answerId = game.answers.length;
+
 					// adds new answer with old answers
-					let allAnswers = [...game.answers, {answer: action.newAnswer, points: action.points}];
+					let allAnswers = [...game.answers, {answer: action.newAnswer, points: action.points, id: answerId }];
 
 						// creating a new copy of game and answers object in new object
 					return Object.assign({}, game, { answers: allAnswers});
@@ -29,7 +31,19 @@ let gameReducer = (state = [], action) => {
 			});
 			
 			return games;
-			
+			break;
+		case 'DELETE_ANSWER':
+			return state.map((game) => {
+				//console.log(action);
+				if(game.id === parseInt(action.gameId, 10)) {
+					game.answers.splice(action.answerId, 1);
+					return game;
+				} else {
+					return game;	
+				}
+				
+			});
+			break;
 		default:
 			return state;
 	}

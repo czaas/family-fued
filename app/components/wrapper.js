@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class App extends React.Component {
+export class Wrapper extends React.Component {
 
 	render() {
 		return (
@@ -11,5 +11,3 @@ export class App extends React.Component {
 		);
 	}
 }
-
-export default App;

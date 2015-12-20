@@ -21,7 +21,7 @@ export class HomeScreen extends React.Component {
 
 	render() {
 		let questions = this.state.games.map((question)=>{
-			return <div><h2><Link to={"/add-answer/" + question.id}>{question.name}</Link></h2></div>;
+			return <div key={question.id}><h2><Link to={"/add-answer/" + question.id}>{question.name}</Link></h2></div>;
 		});
 		return (
 			<div>

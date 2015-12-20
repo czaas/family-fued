@@ -37,11 +37,4 @@ store.dispatch(newGame('Game 0 question'));
 store.dispatch(newGame('Game 1 question'));
 store.dispatch(newGame('Game 2 question'));
 
-// adding answers
-store.dispatch(newAnswer({answer: 'Test', gameId: '2', points: 10 }));
-store.dispatch(newAnswer({answer: 'This should be an answer', gameId: '2', points: 67 }));
-store.dispatch(newAnswer({answer: 'Third answer', gameId: '2', points: 32 }));
-
-store.dispatch(deleteAnswer({ answerId: 1, gameId: '2' }));
-
 export default store;

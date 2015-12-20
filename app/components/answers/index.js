@@ -37,15 +37,22 @@ export class AddAnswer extends React.Component {
 	}
 
 	render() {
+			let indexOfGame;
+			this.state.games.map( (game, i, arr) => {
+				if (game.id == parseInt(this.props.params.id, 10)){
+					indexOfGame = i;
+				}
+			});
 		return (
+
 			<div>
 				<AddAnswerForm handleAnswer={this.handleAnswer} />
 				<ShowAnswers 
-					question={this.state.games[this.props.params.id].name}
-					answers={this.state.games[this.props.params.id].answers}
+					question={this.state.games[indexOfGame].name}
+					answers={this.state.games[indexOfGame].answers}
 					handleDelete={this.handleDelete}
 				/>
 			</div>
 		);
 	}
-}
+};

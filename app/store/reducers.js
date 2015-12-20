@@ -4,7 +4,7 @@ let gameReducer = (state = [], action) => {
 	switch(action.type){
 		case 'ADD_GAME':
 
-			action.newGame.id = state.length;
+			action.newGame.id = (+new Date() + Math.floor(Math.random() * 999999));
 			return [
 				...state,
 				action.newGame
@@ -17,7 +17,7 @@ let gameReducer = (state = [], action) => {
 				// looks for state game id vs incoming request id
 				if (game.id === parseInt(action.gameId, 10)) {
 
-					let answerId = game.answers.length;
+					let answerId = (+new Date() + Math.floor(Math.random() * 999999));
 
 					// adds new answer with old answers
 					let allAnswers = [...game.answers, {answer: action.newAnswer, points: action.points, id: answerId }];
@@ -34,15 +34,23 @@ let gameReducer = (state = [], action) => {
 			break;
 		case 'DELETE_ANSWER':
 			return state.map((game) => {
-				//console.log(action);
 				if(game.id === parseInt(action.gameId, 10)) {
-					game.answers.splice(action.answerId, 1);
+					let indexOfAnswer;
+
+					game.answers.map( ( answer, i ) => {
+						if(answer.id === parseInt(action.answerId, 10)){
+							indexOfAnswer = i;		
+						}
+					});
+					
+					game.answers.splice(indexOfAnswer, 1);
 					return game;
 				} else {
 					return game;	
 				}
 				
 			});
+			return state;
 			break;
 		default:
 			return state;

@@ -4,20 +4,14 @@ class ShowAnswers extends React.Component {
 
 	constructor(){
 		super();
-		this.handleEdit = this.handleEdit.bind(this);
 	}
-
-	handleEdit(id){
-		this.props.handleEdit(id);
-	}
-
 	handleDelete(answer){
 		this.props.handleDelete(answer.id);
 	}
 
 	render() {
 		let allAnswers = this.props.answers.map( (a) => {
-				return <li key={a.id}>{a.answer}, {a.points} <a onClick={this.handleDelete.bind(this, a)}>delete</a></li>
+				return <li key={a.id}>{a.answer}, {a.points} <a onClick={this.handleDelete.bind(this, a)}> delete</a></li>
 			});
 
 		return (

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import _ from 'lodash';
 
 let gameReducer = (state = [], action) => {
 	switch(action.type){
@@ -11,8 +12,17 @@ let gameReducer = (state = [], action) => {
 			];
 			
 			break;
+		case 'DELETE_QUESTION':
+
+			var newState = _.remove(state, (question) => {
+				return question.id !== parseInt(action.gameId, 10);
+			});
+
+			return newState;
+			
+			break;
 		case 'ADD_ANSWER':
-			let games = state.map((game) => {
+			var games = state.map((game) => {
 
 				// looks for state game id vs incoming request id
 				if (game.id === parseInt(action.gameId, 10)) {
@@ -20,7 +30,13 @@ let gameReducer = (state = [], action) => {
 					let answerId = (+new Date() + Math.floor(Math.random() * 999999));
 
 					// adds new answer with old answers
-					let allAnswers = [...game.answers, {answer: action.newAnswer, points: action.points, id: answerId }];
+					let allAnswers = [
+						...game.answers, 
+						{
+							answer: action.newAnswer, 
+							points: action.points, 
+							id: answerId
+					}];
 
 						// creating a new copy of game and answers object in new object
 					return Object.assign({}, game, { answers: allAnswers});
@@ -33,24 +49,21 @@ let gameReducer = (state = [], action) => {
 			return games;
 			break;
 		case 'DELETE_ANSWER':
+
 			return state.map((game) => {
 				if(game.id === parseInt(action.gameId, 10)) {
-					let indexOfAnswer;
 
-					game.answers.map( ( answer, i ) => {
-						if(answer.id === parseInt(action.answerId, 10)){
-							indexOfAnswer = i;		
-						}
+					game.answers = _.remove(game.answers, (answer) => {
+						return answer.id !== action.answerId
 					});
 					
-					game.answers.splice(indexOfAnswer, 1);
 					return game;
 				} else {
 					return game;	
 				}
 				
 			});
-			return state;
+
 			break;
 		default:
 			return state;

@@ -12,6 +12,13 @@ export function newGame (gameName) {
 	};
 }
 
+export function deleteQuestion(obj){
+	return {
+		type: 'DELETE_QUESTION',
+		gameId: obj.gameId
+	}
+}
+
 export function newAnswer(a){
 	return {
 		type: 'ADD_ANSWER',
@@ -27,7 +34,6 @@ export function deleteAnswer(obj){
 		answerId: obj.answerId,
 		gameId: obj.gameId
 	}
-
 }
 
 let store = createStore(reducers);
